@@ -1,16 +1,21 @@
-const fs = require('fs');
+const readFilePromise = require('./promise-to-read-file');
 
-fs.readFile('./inputs/day-01', 'utf8', (err, data) => {
-  if (err) throw err;
-  const frequencyChanges = data.split('\n')
-  .map(change => parseInt(change));
+let readFile = readFilePromise('./inputs/day-01');
 
-  const frequencyDiff = frequencyChanges.reduce((a, b) => a + b);
-  console.log(`Result of all frequency changes: ${frequencyDiff}`);
+readFile
+  .then((data) => {
+    const frequencyChanges = data.split('\n')
+    .map(change => parseInt(change));
 
-  const firstFrequencyReachedTwice = calculateFirstFrequencyReachedTwice(frequencyChanges);
-  console.log(`First frequency reached twice: ${firstFrequencyReachedTwice}`);
-});
+    const frequencyDiff = frequencyChanges.reduce((a, b) => a + b);
+    console.log(`Result of all frequency changes: ${frequencyDiff}`);
+
+    const firstFrequencyReachedTwice = calculateFirstFrequencyReachedTwice(frequencyChanges);
+    console.log(`First frequency reached twice: ${firstFrequencyReachedTwice}`);
+  })
+  .catch((err) => {
+    console.error(err);
+  });
 
 function calculateFirstFrequencyReachedTwice (frequencyChanges) {
   let frequenciesReached = [0];

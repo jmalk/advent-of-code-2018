@@ -70,13 +70,13 @@ function aLetterOccursExactlyNTimes (string, n) {
 }
 
 function differByOneCharacter (stringA, stringB) {
+  if (stringA.length !== stringB.length) {
+    return false;
+  }
+
   let differentCharacters = 0;
   let a = stringA.split('');
   let b = stringB.split('');
-
-  if (a.length !== b.length) {
-    return false;
-  }
 
   a.forEach((character, index) => {
     if (character !== b[index]) {
@@ -88,3 +88,4 @@ function differByOneCharacter (stringA, stringB) {
 }
 
 console.log(`Expected true, got ${differByOneCharacter('abcde', 'abcxe')}`);
+console.log(`Expected false, got ${differByOneCharacter('abcdefgh', 'abcxe')}`);

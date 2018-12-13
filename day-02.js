@@ -26,6 +26,16 @@ readFile
 
     const rudimentaryHash = finalTallies.idsWithExactlyTwoOfALetter * finalTallies.idsWithExactlyThreeOfALetter;
     console.log({rudimentaryHash});
+
+    const allPairsOfBoxIds = allPairs(boxIds);
+
+    const pairsWithOnlyOneDifference = allPairsOfBoxIds.filter((pair) => {
+      const sameLength = pair[0].length === pair[1].length;
+      const onlyOneDifference = sharedCharacters(pair[0], pair[1]).length === pair[0].length - 1;
+      return sameLength && onlyOneDifference;
+    });
+
+    console.log(`Shared characters of box IDs: ${sharedCharacters(pairsWithOnlyOneDifference[0][0], pairsWithOnlyOneDifference[0][1])}`);
   })
   .catch((err) => {
     console.error(err);
@@ -80,5 +90,19 @@ function sharedCharacters (stringA, stringB) {
   return sharedCharacters.join('');
 }
 
-console.log(`Expected abce, got ${sharedCharacters('abcde', 'abcxe')}`);
-console.log(`Expected a, got ${sharedCharacters('abcde', 'acdef')}`);
+// console.log(`Expected abce, got ${sharedCharacters('abcde', 'abcxe')}`);
+// console.log(`Expected a, got ${sharedCharacters('abcde', 'acdef')}`);
+
+function allPairs (arr) {
+  let pairs = [];
+
+  arr.forEach((element, index, array) => {
+    for (let i = index + 1; i < array.length; i++) {
+      pairs.push([element, array[i]]);
+    }
+  });
+
+  return pairs;
+}
+
+// console.log(`Expected [ab, ac, bc], got ${JSON.stringify(allPairs(['a', 'b', 'c']))}`);

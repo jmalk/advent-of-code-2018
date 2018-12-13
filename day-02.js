@@ -68,3 +68,23 @@ function aLetterOccursExactlyNTimes (string, n) {
 
   return lettersWhichAppearTwice.length > 0;
 }
+
+function differByOneCharacter (stringA, stringB) {
+  let differentCharacters = 0;
+  let a = stringA.split('');
+  let b = stringB.split('');
+
+  if (a.length !== b.length) {
+    return false;
+  }
+
+  a.forEach((character, index) => {
+    if (character !== b[index]) {
+      differentCharacters += 1;
+    }
+  });
+
+  return differentCharacters === 1;
+}
+
+console.log(`Expected true, got ${differByOneCharacter('abcde', 'abcxe')}`);

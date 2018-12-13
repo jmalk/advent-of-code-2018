@@ -69,23 +69,16 @@ function aLetterOccursExactlyNTimes (string, n) {
   return lettersWhichAppearTwice.length > 0;
 }
 
-function differByOneCharacter (stringA, stringB) {
-  if (stringA.length !== stringB.length) {
-    return false;
-  }
-
-  let differentCharacters = 0;
+function sharedCharacters (stringA, stringB) {
   let a = stringA.split('');
   let b = stringB.split('');
 
-  a.forEach((character, index) => {
-    if (character !== b[index]) {
-      differentCharacters += 1;
-    }
+  let sharedCharacters = a.filter((letter, index) => {
+    return letter === b[index];
   });
 
-  return differentCharacters === 1;
+  return sharedCharacters.join('');
 }
 
-console.log(`Expected true, got ${differByOneCharacter('abcde', 'abcxe')}`);
-console.log(`Expected false, got ${differByOneCharacter('abcdefgh', 'abcxe')}`);
+console.log(`Expected abce, got ${sharedCharacters('abcde', 'abcxe')}`);
+console.log(`Expected a, got ${sharedCharacters('abcde', 'acdef')}`);
